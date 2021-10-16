@@ -49,7 +49,7 @@ export abstract class Item implements Comparable<Item> {
       return -1;
     }
 
-    return this.getName().toLowerCase() > other.getName().toLowerCase() ? 1 : -1;
+    return this.getName().toLowerCase().localeCompare(other.getName().toLowerCase());
   }
 
   public toString() {
