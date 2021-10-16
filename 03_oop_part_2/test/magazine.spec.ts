@@ -21,7 +21,7 @@ describe('Magazine', () => {
 
   it('with PageFactory - toString should return correct value', () => {
     let counter = 1;
-    const magazine = new Magazine('G.Q', PagesFactory.createPages(PageVariant.Magazine, 2));
+    const magazine = new Magazine('G.Q', PagesFactory.createMagazinePages(2));
 
     for (const page of magazine) {
       expect(page.toString()).toEqual(

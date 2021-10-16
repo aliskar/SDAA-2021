@@ -23,7 +23,7 @@ describe('Comics', () => {
 
   it('with PageFactory - toString should return correct value', () => {
     let counter = 1;
-    const comics = new Comics('Spider-Man', 'Stan Lee', 'some author', PagesFactory.createPages(PageVariant.Comics, 2));
+    const comics = new Comics('Spider-Man', 'Stan Lee', 'some author', PagesFactory.createComicsPages(2));
 
     for (const page of comics) {
       expect(page.toString()).toEqual(

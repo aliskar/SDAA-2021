@@ -1,46 +1,47 @@
 import { Page } from './page';
 import { Pages } from './pages';
 
-export enum PageVariant {
+export const enum PageVariant {
   Book,
   Comics,
   Magazine,
 }
 
-enum PageType {
+const enum PageType {
   Book = 'with text',
   Magazine = 'with article',
   Comics = 'with images',
 }
 
-enum PageMaterial {
+const enum PageMaterial {
   Book = 'simple paper',
   Magazine = 'glossy paper',
   Comics = 'glossy paper',
 }
 
 export class PagesFactory {
-  public static createPages(variant: PageVariant, count: number) {
-    switch (variant) {
-      case PageVariant.Book:
-        return new Pages(
-          Array(count)
-            .fill(0)
-            .map((_el, i) => new BookPage(i + 1))
-        );
-      case PageVariant.Comics:
-        return new Pages(
-          Array(count)
-            .fill(0)
-            .map((_el, i) => new ComicsPage(i + 1))
-        );
-      case PageVariant.Magazine:
-        return new Pages(
-          Array(count)
-            .fill(0)
-            .map((_el, i) => new MagazinePage(i + 1))
-        );
-    }
+  public static createBookPages(count: number) {
+    return new Pages(
+      Array(count)
+        .fill(0)
+        .map((_el, i) => new BookPage(i + 1))
+    );
+  }
+
+  public static createComicsPages(count: number) {
+    return new Pages(
+      Array(count)
+        .fill(0)
+        .map((_el, i) => new ComicsPage(i + 1))
+    );
+  }
+
+  public static createMagazinePages(count: number) {
+    return new Pages(
+      Array(count)
+        .fill(0)
+        .map((_el, i) => new MagazinePage(i + 1))
+    );
   }
 }
 

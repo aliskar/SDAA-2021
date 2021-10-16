@@ -30,7 +30,7 @@ describe('Book', () => {
     const book = new Book(
       'Harry Potter',
       'J. K. Rowling',
-      PagesFactory.createPages(PageVariant.Book, 4)
+      PagesFactory.createBookPages(4)
     );
 
     for (const page of book) {
