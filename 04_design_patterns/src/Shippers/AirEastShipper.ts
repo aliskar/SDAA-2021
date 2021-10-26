@@ -2,8 +2,8 @@ import { ShipmentType } from '../types'
 import { Shipper } from './Shipper'
 
 export class AirEastShipper extends Shipper {
-  protected static LETTER_COST = 0.39
-  protected static PACKAGE_COST = 0.25
+  private static LETTER_COST = 0.39
+  private static PACKAGE_COST = 0.25
 
   constructor() {
     super(AirEastShipper.LETTER_COST, AirEastShipper.PACKAGE_COST)
