@@ -1,9 +1,9 @@
 import { MarkWithCodes } from '../decorators/markWithCodes'
 import { Shipper } from '../Shippers/Shipper'
 import { ShipperFactory } from '../Shippers/ShipperFactory'
-import { Marks, ShipmentState } from '../types'
+import { IShipment, Marks, ShipmentState } from '../types'
 
-export abstract class Shipment {
+export abstract class Shipment implements IShipment {
   protected shipmentStrategy: Shipper
   static shipmentId = 0
 
@@ -18,7 +18,6 @@ export abstract class Shipment {
     return this.state.shipmentId !== 0 ? this.state.shipmentId : Shipment.shipmentId
   }
 
-  @MarkWithCodes
   public ship() {
     return `Shipment id: ${this.getShipmentID()}, from: ${this.state.fromAddress} ${this.state.fromZipCode}, to: ${
       this.state.toAddress

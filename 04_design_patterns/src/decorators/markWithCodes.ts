@@ -1,23 +1,24 @@
-import { Shipment } from '../Shipments/Shipment'
-import { Marks } from '../types'
+import { IShipment, Marks } from '../types'
 
-export function MarkWithCodes(
-  target: Shipment,
-  _methodName: string,
-  descriptor: TypedPropertyDescriptor<(...args: any) => any>
-) {
-  const method = descriptor.value
-  descriptor.value = function () {
-    const result = method.call(this)
-    const marks: Marks[] | undefined = target.getMarks.call(this)
+type Constructor<T = {}> = new (...args: any[]) => T
+type Shipable = Constructor<IShipment>
 
-    if (marks && marks.length > 0) {
-      const preparedMarks = marks.map((mark) => `**MARK ${mark.toUpperCase()}**`).join('\n')
-      return `${result}\n${preparedMarks}`
+export function MarkWithCodes<T extends Shipable>(constructor: T) {
+  return class extends constructor {
+    constructor(...args: any[]) {
+      super(...args)
     }
 
-    return result
+    public ship() {
+      const result = super.ship()
+      const marks: Marks[] | undefined = super.getMarks()
+  
+      if (marks?.length) {
+        const preparedMarks = marks.map((mark) => `**MARK ${mark.toUpperCase()}**`).join('\n')
+        return `${result}\n${preparedMarks}`
+      }
+  
+      return result
+    }
   }
-
-  return descriptor
 }

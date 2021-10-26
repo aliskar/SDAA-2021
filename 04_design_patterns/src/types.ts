@@ -1,3 +1,5 @@
+import { Shipper } from './Shippers/Shipper'
+
 export type shipmentCallback = (state: ShipmentState) => void
 
 export type eventListeners = {
@@ -20,4 +22,17 @@ export interface ShipmentState {
   fromZipCode: string
   weight: number
   marks?: Marks[]
+}
+
+export interface IShipment {
+  getCost(): number
+  getShipmentID(): number
+  ship(): string
+  getWeight(): number
+  setToAddress(adress: string): void
+  setFromAddress(adress: string): void
+  setToZipCode(zipCode: string): void
+  setFromZipCode(zipCode: string): void
+  getMarks(): Marks[]
+  setMarks(marks: Marks[]): void
 }
