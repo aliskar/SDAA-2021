@@ -1,8 +1,6 @@
 import { MarkWithCodes } from '../decorators/markWithCodes'
-import { AirEastShipper } from '../Shippers/AirEastShipper'
-import { ChicagoSprintShipper } from '../Shippers/ChicagoSprintShipper'
-import { PacificParselShipper } from '../Shippers/PacificParcelShipper'
 import { Shipper } from '../Shippers/Shipper'
+import { ShipperFactory } from '../Shippers/ShipperFactory'
 import { Marks, ShipmentState } from '../types'
 
 export abstract class Shipment {
@@ -10,7 +8,7 @@ export abstract class Shipment {
   static shipmentId = 0
 
   constructor(private state: ShipmentState) {
-    this.shipmentStrategy = this.getShipmentStrategy()
+    this.shipmentStrategy = ShipperFactory.getShipperStrategy(this.state.fromZipCode)
   }
 
   abstract getCost(): number
@@ -25,18 +23,6 @@ export abstract class Shipment {
     return `Shipment id: ${this.getShipmentID()}, from: ${this.state.fromAddress} ${this.state.fromZipCode}, to: ${
       this.state.toAddress
     } ${this.state.toZipCode}, cost: ${this.getCost()}$`
-  }
-
-  private getShipmentStrategy() {
-    if (/^[7-9]/.test(this.state.fromZipCode)) {
-      return new PacificParselShipper()
-    }
-
-    if (/^[4-6]/.test(this.state.fromZipCode)) {
-      return new ChicagoSprintShipper()
-    }
-
-    return new AirEastShipper()
   }
 
   public getWeight() {
