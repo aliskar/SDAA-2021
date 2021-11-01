@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Euro",
+    "code": "EUR",
+    "rate": 0.35
+  },
+  {
+    "name": "US Dollar",
+    "code": "USD",
+    "rate": 0.41
+  },
+  {
+    "name": "Russian ruble",
+    "code": "RUB",
+    "rate": 29.13
+  },
+  {
+    "name": "Ukrainian hryvnia",
+    "code": "UAH",
+    "rate": 1.21
+  },
+  {
+    "name": "Polish złoty",
+    "code": "PLN",
+    "rate": 1.64
+  }
+]
