@@ -1,0 +1,29 @@
+{
+  "name": "06_patterns_of_patterns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "webpack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.0",
+    "css-loader": "^6.5.0",
+    "html-webpack-plugin": "^5.3.1",
+    "jest": "^27.2.5",
+    "style-loader": "^3.3.1",
+    "ts-jest": "^27.0.7",
+    "ts-loader": "^9.1.2",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^4.4.0"
+  }
+}

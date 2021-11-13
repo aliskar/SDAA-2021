@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+     "types": ["jest", "node"],
+     "moduleResolution": "node",
+     "esModuleInterop": true,
+     "resolveJsonModule": true,
+     "experimentalDecorators": true,
+     "emitDecoratorMetadata": true,
+     "target": "ESNext",
+     "lib": ["DOM"],
+     "rootDir": "./src"
+  },
+}
