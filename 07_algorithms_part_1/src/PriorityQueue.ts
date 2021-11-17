@@ -1,6 +1,6 @@
-import { PriorityJob, PriorityQueue } from './types'
+import { PriorityJob, Queue } from './types'
 
-export class Queue implements PriorityQueue {
+export class PriorityQueue implements Queue {
   private line: PriorityJob[] = []
 
   public getMaxPriorityJob() {
@@ -56,12 +56,12 @@ export class Queue implements PriorityQueue {
     }
   }
 
-  public insert(job: PriorityJob) {
+  public push(job: PriorityJob) {
     this.line.push(job)
     this.siftUp(this.getLastJobIndex())
   }
 
-  public extractMax() {
+  public pop() {
     const result = this.line[0]
     this.swapJobs(0, this.getLastJobIndex())
     this.line.pop()
@@ -72,7 +72,7 @@ export class Queue implements PriorityQueue {
   public remove(index: number) {
     this.line[index].priority = Infinity
     this.siftUp(index)
-    this.extractMax()
+    this.pop()
   }
 
   public changePriority(index: number, priority: number) {

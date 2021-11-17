@@ -6,10 +6,10 @@ export interface PriorityJob {
   run(): void
 }
 
-export interface PriorityQueue {
+export interface Queue {
   getMaxPriorityJob(): PriorityJob
-  insert(job: PriorityJob): void
-  extractMax(): PriorityJob
+  push(job: PriorityJob): void
+  pop(): PriorityJob
   remove(index: number): void
   changePriority(index: number, priority: number): void
 }

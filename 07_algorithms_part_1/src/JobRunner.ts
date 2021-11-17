@@ -1,19 +1,19 @@
-import { PriorityJob, PriorityQueue } from './types'
+import { PriorityJob, Queue } from './types'
 
 export class JobRunner {
-  constructor(private priorityQueue: PriorityQueue) {}
+  constructor(private priorityQueue: Queue) {}
 
   public addJob(job: PriorityJob) {
-    this.priorityQueue.insert(job)
+    this.priorityQueue.push(job)
     return this
   }
 
   public async run() {
-    let nextJob = this.priorityQueue.extractMax()
+    let nextJob = this.priorityQueue.pop()
 
     while (nextJob) {
       await nextJob.run()
-      nextJob = this.priorityQueue.extractMax()
+      nextJob = this.priorityQueue.pop()
     }
   }
 }
