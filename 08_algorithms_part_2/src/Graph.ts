@@ -32,52 +32,59 @@ export class Graph {
     this.matrix[y][x] = weight
   }
 
-  public findShortestRoute(from: number, to: number) {
-    if (from > this.size - 1 || to > this.size - 1) {
-      throw Error('Vertices cant be out of the matrix')
-    }
+  private findClosestVertex(minDist: number[], visited: boolean[]) {
+    let minDistance = Infinity
+    let closest = null
 
-    const visited: boolean[] = Array(this.size).fill(false)
-    const minDist: number[] = Array(this.size).fill(Infinity)
-    const closestVertices: number[] = []
-    minDist[from] = 0
+    minDist.forEach((vertex, index) => {
+      if (!visited[index] && vertex < minDistance) {
+        minDistance = vertex
+        closest = index
+      }
+    })
 
-    for (let i = 0; i < this.size; i++) {
-      let minDistPretender = Infinity
-      let closest = 0
+    return closest
+  }
 
-      minDist.forEach((value, index) => {
-        if (!visited[index] && value < minDistPretender) {
-          minDistPretender = value
-          closest = index
-        }
-      })
+  private handleVertex(minDist: number[], vertex: number, closestVertices: number[], visited: boolean[]) {
+    const currentDistance = minDist[vertex]
 
-      visited[closest] = true
+    minDist.forEach((value, index) => {
+      const edgeWeight = this.matrix[vertex][index]
+      const newMinDist = currentDistance + edgeWeight
 
-      // console.log(`------${i}-------`)
-      // console.log('minDistPretender =>', minDistPretender)
-      // console.log('closest =>', closest)
-      // console.log(`minDist =>`, minDist)
+      if (edgeWeight > 0 && newMinDist < value) {
+        minDist[index] = newMinDist
+        closestVertices[index] = vertex
+      }
+    })
 
-      minDist.forEach((value, index) => {
-        const edgeWeight = this.matrix[closest][index]
-        const newMinDist = minDistPretender + edgeWeight
-        //console.log(`i = ${i} =>`, edgeWeight)
+    visited[vertex] = true
+  }
 
-        if (edgeWeight > 0 && newMinDist < value) {
-          minDist[index] = newMinDist
-          closestVertices[index] = closest
-        }
-      })
-    }
-
+  private formPath(closestVertices: number[], from: number, to: number) {
     const path = []
     while (to !== from) {
       path.push(to)
       to = closestVertices[to]
     }
-
     return [from, ...path.reverse()].join(' -> ')
+  }
+
+  public findShortestRoute(from: number, to: number) {
+    const visited: boolean[] = Array(this.size).fill(false)
+    const minDist: number[] = Array(this.size).fill(Infinity)
+    const closestVertices: number[] | null[] = Array(this.size).fill(null)
+
+    minDist[from] = 0
+
+    let activeVertex = this.findClosestVertex(minDist, visited)
+
+    while (activeVertex !== null) {
+      this.handleVertex(minDist, activeVertex, closestVertices, visited)
+      activeVertex = this.findClosestVertex(minDist, visited)
+    }
+
+    return this.formPath(closestVertices, from, to)
   }
 }
